@@ -12,7 +12,8 @@
     "generate": "esno ./scripts/generate-play.ts",
     "lint": "eslint .",
     "translate": "esno ./scripts/translate-cli.ts",
-    "utils:release": "pnpm -C utils release"
+    "utils:release": "pnpm -C utils release",
+    "deploy": "git add . && git commit -m 'update' && git push && git status"
   },
   "dependencies": {
     "esno": "^4.0.0",
