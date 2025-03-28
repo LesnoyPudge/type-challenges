@@ -39,9 +39,22 @@
 
 /* _____________ Your Code Here _____________ */
 
-type Chainable = {
-  option(key: string, value: any): any
-  get(): any
+
+// type Stateful<_State extends Record<string, >>
+
+type Chainable<
+    _State extends Record<string, any> = {}
+> = {
+    option<
+        _Key extends string, 
+        _Value
+    >(
+        key: _Key, 
+        value: _Key extends keyof _State ? never : _Value
+    ): Chainable<Omit<_State, _Key> & {
+        [x in _Key]: _Value
+    }>
+    get(): _State
 }
 
 /* _____________ Test Cases _____________ */

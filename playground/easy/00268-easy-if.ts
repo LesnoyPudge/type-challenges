@@ -19,7 +19,9 @@
 
 /* _____________ Your Code Here _____________ */
 
-type If<C, T, F> = any
+type If<_Condition extends boolean, _IfTrue, _IfFalse> = (
+    _Condition extends true ? _IfTrue : _IfFalse
+)
 
 /* _____________ Test Cases _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'

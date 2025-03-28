@@ -29,7 +29,9 @@
 
 /* _____________ Your Code Here _____________ */
 
-type LookUp<U, T> = any
+type LookUp<_Obj extends Record<'type', unknown>, _Type extends string> = (
+    _Obj extends {type: _Type} ? _Obj : never
+)
 
 /* _____________ Test Cases _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'

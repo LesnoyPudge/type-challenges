@@ -18,7 +18,25 @@
 
 /* _____________ Your Code Here _____________ */
 
-type Trim<S extends string> = any
+// type Trim<_Chars extends string> = (
+//     _Chars extends ` ${infer _Rest extends string}`
+//         ? _Rest extends `\n\t${infer _Rest2 extends string}`
+//             ? Trim<_Rest2>
+//             : Trim<_Rest> 
+//         : _Chars
+// );
+
+
+type ToReplace = ' ' | '\n' | '\t';
+
+type Trim<_Chars extends string> = (
+    _Chars extends (
+        `${ToReplace}${infer _Rest}`
+        | `${infer _Rest}${ToReplace}`
+    )
+        ? Trim<_Rest>
+        : _Chars
+);
 
 /* _____________ Test Cases _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'

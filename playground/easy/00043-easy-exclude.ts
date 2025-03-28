@@ -20,7 +20,9 @@
 
 /* _____________ Your Code Here _____________ */
 
-type MyExclude<T, U> = any
+type MyExclude<_OriginalUnion extends any, _TypeToExclude> = (
+    _OriginalUnion extends _TypeToExclude ? never : _OriginalUnion
+);
 
 /* _____________ Test Cases _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'

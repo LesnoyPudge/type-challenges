@@ -18,7 +18,20 @@
 
 /* _____________ Your Code Here _____________ */
 
-type Replace<S extends string, From extends string, To extends string> = any
+type Replace<
+    _Str extends string, 
+    _From extends string, 
+    _To extends string
+> = (
+    _From extends ''
+        ? _Str
+        : _Str extends `${infer _Start}${_From}${infer _End}`
+            ? `${_Start}${_To}${_End}`
+            : _Str
+)
+
+type qwe1 = Replace<'foobarbar', '', 'foo'>
+type qwe2 = Replace<'foobarbar', 'bar', 'foo'>
 
 /* _____________ Test Cases _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'

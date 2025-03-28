@@ -22,7 +22,15 @@
 
 /* _____________ Your Code Here _____________ */
 
-type MyAwaited<T> = any
+type Thenable<_Value> = {
+    then: (onsuccess: (value: _Value) => any) => any;
+}
+
+type MyAwaited<_MaybePromise> = (
+    _MaybePromise extends Thenable<infer _Value> 
+        ? MyAwaited<_Value> 
+        : _MaybePromise
+)
 
 /* _____________ Test Cases _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'

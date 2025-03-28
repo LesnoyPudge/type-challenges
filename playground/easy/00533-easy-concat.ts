@@ -18,7 +18,10 @@
 
 /* _____________ Your Code Here _____________ */
 
-type Concat<T, U> = any
+type Concat<
+    _FirstArr extends readonly any[], 
+    _SecondArr extends readonly any[]
+> = [..._FirstArr, ..._SecondArr]
 
 /* _____________ Test Cases _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'

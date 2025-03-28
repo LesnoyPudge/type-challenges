@@ -23,7 +23,31 @@
 
 /* _____________ Your Code Here _____________ */
 
-declare function PromiseAll(values: any): any
+type Thenable<_Value> = {
+    then: (onsuccess: (value: _Value) => any) => any;
+}
+
+type Awaited<_MaybePromise> = (
+    _MaybePromise extends Thenable<infer _Value> 
+        ? Awaited<_Value> 
+        : _MaybePromise
+)
+
+type PromiseAllType<
+    _Promises extends any[]
+> = (
+    _Promises extends [infer _First, ...infer _Rest]
+        ? [Awaited<_First>, ...PromiseAllType<_Rest>]
+        : number extends _Promises['length']
+            ? Awaited<_Promises[1]>[]
+            : []
+)
+
+declare function PromiseAll<
+    _Promises extends any[]
+>(
+    values: [..._Promises]
+): Promise<PromiseAllType<typeof values>>;
 
 /* _____________ Test Cases _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'

@@ -36,7 +36,17 @@
 
 /* _____________ Your Code Here _____________ */
 
-type DeepReadonly<T> = any
+type DeepReadonly<_Obj> = (
+    _Obj extends (...args: any[]) => any
+        ? _Obj
+        : _Obj extends Record<PropertyKey, any>
+            ? {
+                readonly [_Key in keyof _Obj]: DeepReadonly<_Obj[_Key]> 
+            }
+            : _Obj
+)
+
+type qwe = DeepReadonly<X1>
 
 /* _____________ Test Cases _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'

@@ -16,7 +16,26 @@
 
 /* _____________ Your Code Here _____________ */
 
-type Permutation<T> = any
+type CreateArray<_Union, _Arr extends any[]> = (
+    _Union extends never
+        ? []
+        : CreateArray<Exclude<_Union, _Union>, [..._Arr, string]>
+);
+
+
+type qwe2 = Exclude<'a' | 'b', 'a' | 'b'>
+
+type qwe1 = CreateArray<'A' | 'B', []>;
+//   ^?
+
+type Permutation<_Union, _Arr extends any[] = []> = (
+    _Union extends infer _Val
+        ? Permutation<Exclude<_Union, _Val>, [..._Arr, _Val]>
+        : never
+);
+
+type qwe = Permutation<'A' | 'B'>;
+//    ^?
 
 /* _____________ Test Cases _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'

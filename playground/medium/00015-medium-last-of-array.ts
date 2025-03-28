@@ -24,7 +24,13 @@
 
 /* _____________ Your Code Here _____________ */
 
-type Last<T extends any[]> = any
+type Last<_Arr extends any[]> = (
+    _Arr extends [infer _First, ...infer _Rest]
+        ? Equal<_Arr['length'], 1> extends true
+            ? _First
+            : Last<_Rest>
+        : never
+)
 
 /* _____________ Test Cases _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'

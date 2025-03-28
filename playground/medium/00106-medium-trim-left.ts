@@ -18,7 +18,13 @@
 
 /* _____________ Your Code Here _____________ */
 
-type TrimLeft<S extends string> = any
+type TrimLeft<_Chars extends string> = (
+    _Chars extends ` ${infer _Rest extends string}`
+        ? _Rest extends `\n\t${infer _Rest2 extends string}`
+            ? TrimLeft<_Rest2>
+            : TrimLeft<_Rest> 
+        : _Chars
+);
 
 /* _____________ Test Cases _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'

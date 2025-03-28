@@ -18,7 +18,15 @@
 
 /* _____________ Your Code Here _____________ */
 
-type Includes<T extends readonly any[], U> = any
+type Includes<_Arr extends readonly any[], _SearchValue> = (
+    _Arr extends [infer _First, ...infer _Rest]
+        ? (
+            Equal<_First, _SearchValue> extends true
+                ? true
+                : Includes<_Rest, _SearchValue>
+        )
+        : false
+)
 
 /* _____________ Test Cases _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'

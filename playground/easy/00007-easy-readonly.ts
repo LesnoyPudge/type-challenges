@@ -31,7 +31,9 @@
 
 /* _____________ Your Code Here _____________ */
 
-type MyReadonly<T> = any
+type MyReadonly<_Original> = {
+    readonly [_Key in keyof _Original]: _Original[_Key]
+}
 
 /* _____________ Test Cases _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'

@@ -25,7 +25,11 @@
 
 /* _____________ Your Code Here _____________ */
 
-type MyReturnType<T> = any
+type MyReturnType<_Fn extends (...args: any[]) => any> = (
+    _Fn extends (...args: any[]) => infer _Return
+        ? _Return
+        : never
+)
 
 /* _____________ Test Cases _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'

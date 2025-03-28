@@ -26,7 +26,11 @@
 
 /* _____________ Your Code Here _____________ */
 
-type Pop<T extends any[]> = any
+type Pop<_Arr extends any[]> = (
+    _Arr extends [...infer _Rest, infer _Last]
+        ? _Rest
+        : []
+)
 
 /* _____________ Test Cases _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'

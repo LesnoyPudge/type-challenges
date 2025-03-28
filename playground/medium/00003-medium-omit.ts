@@ -30,7 +30,12 @@
 
 /* _____________ Your Code Here _____________ */
 
-type MyOmit<T, K> = any
+type MyOmit<
+    _Obj extends Record<PropertyKey, any>, 
+    _Keys extends keyof _Obj
+> = {
+    [_Key in keyof _Obj as _Key extends _Keys ? never : _Key]: _Obj[_Key]
+}
 
 /* _____________ Test Cases _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'

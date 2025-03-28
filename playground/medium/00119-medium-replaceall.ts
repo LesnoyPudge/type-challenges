@@ -18,8 +18,21 @@
 
 /* _____________ Your Code Here _____________ */
 
-type ReplaceAll<S extends string, From extends string, To extends string> = any
 
+type ReplaceAll<
+    _Str extends string, 
+    _From extends string, 
+    _To extends string
+> = (
+    _From extends ''
+        ? _Str
+        : _Str extends `${infer _Start}${_From}${infer _End}`
+            ? `${_Start}${_To}${ReplaceAll<_End, _From, _To>}`
+            : _Str
+)
+
+type qwe = ReplaceAll<'foobarfoobar', 'ob', 'b'>
+//   ^? //fobarfobar
 /* _____________ Test Cases _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'
 

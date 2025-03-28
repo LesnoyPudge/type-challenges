@@ -34,10 +34,17 @@
 
 /* _____________ Your Code Here _____________ */
 
-type MyReadonly2<T, K> = any
+type MyReadonly2<
+    _Obj extends Record<PropertyKey, any>, 
+    _Keys extends keyof _Obj = never
+> = (
+    Equal<_Keys, never> extends true
+        ? Readonly<_Obj>    
+        : Omit<_Obj, _Keys> & Readonly<Pick<_Obj, _Keys>>
+)
 
 /* _____________ Test Cases _____________ */
-import type { Alike, Expect } from '@type-challenges/utils'
+import type { Alike, Equal, Expect } from '@type-challenges/utils'
 
 type cases = [
   Expect<Alike<MyReadonly2<Todo1>, Readonly<Todo1>>>,
